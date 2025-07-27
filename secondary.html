@@ -3,14 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GD AppsFlyer Test</title>
-    <link rel="stylesheet" href="./styles.css">
+    <title>AppsFlyer Support Engineer - Test Environment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gilroy:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #220E4E;
+            color: white;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+
+        .logo-container svg {
+            max-width: 300px;
+            height: auto;
+            filter: brightness(1.2);
+        }
+
+        .main-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #7ad143, #00c2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .environment-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #7ad143, #00c2ff);
+            color: #220E4E;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation Section */
+        .nav-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #7ad143;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #7ad143, #00c2ff);
+            border-radius: 2px;
+        }
+
+        /* Links Grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #7ad143, #00c2ff);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .link-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #00c2ff;
+        }
+
+        .link-url {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            word-break: break-all;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border-left: 3px solid #7ad143;
+            margin-bottom: 1rem;
+        }
+
+        .link-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+        }
+
+        .test-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #7ad143, #00c2ff);
+            color: #220E4E;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .test-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(122, 209, 67, 0.4);
+        }
+
+        /* Secondary Page Link */
+        .secondary-link {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .secondary-link a {
+            color: #00c2ff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-link a:hover {
+            color: #7ad143;
+            text-shadow: 0 0 10px rgba(122, 209, 67, 0.5);
+        }
+
+        /* Download Button */
+        .download-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .download-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #7ad143, #00c2ff);
+            color: #220E4E;
+            text-decoration: none;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(122, 209, 67, 0.3);
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(122, 209, 67, 0.5);
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-active {
+            background: #7ad143;
+            box-shadow: 0 0 10px rgba(122, 209, 67, 0.5);
+        }
+
+        .status-testing {
+            background: #00c2ff;
+            box-shadow: 0 0 10px rgba(0, 194, 255, 0.5);
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .qr-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            display: inline-block;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 300px;
+            min-height: 300px;
+        }
+
+        .qr-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .link-card {
+                padding: 1rem;
+            }
+
+            .nav-section {
+                padding: 1.5rem;
+            }
+
+            .qr-container {
+                padding: 1.5rem;
+                margin: 0 1rem;
+                min-width: 250px;
+                min-height: 250px;
+            }
+        }
+
+        /* Animation for page load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container > * {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .container > *:nth-child(2) { animation-delay: 0.1s; }
+        .container > *:nth-child(3) { animation-delay: 0.2s; }
+        .container > *:nth-child(4) { animation-delay: 0.3s; }
+    </style>
 </head>
 <body>
-    <div class="contenedor">
-        <h1 class="titulo-central">AppsFlyer</h1>
-        <h2 class="titulo-central">GD - Test</h2>
-        <a href="index.html">Volver a la main</a>
-    </div>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+                    <defs>
+                        <style>.cls-1{fill:#7ad143;}.cls-2{fill:#00c2ff;}</style>
+                    </defs>
+                    <g id="Layer_2" data-name="Layer 2">
+                        <path class="cls-1" d="M14.47,108.48,48,172.31c2.29,4.35,7.93,7.88,12.59,7.87l68.35-.15c4.67,0,6.6-3.54,4.31-7.9L99.72,108.3c-2.29-4.35-7.93-7.87-12.59-7.86l-68.36.14h-.31c-4.43.17-6.23,3.64-4,7.9"/>
+                        <path class="cls-1" d="M144.32,182.86l20.29,37.86a9.33,9.33,0,0,0,7.53,4.62l40.73-.42c2.78,0,3.9-2.15,2.52-4.74l-20.28-37.86a9.37,9.37,0,0,0-7.54-4.62l-40.73.43h-.14c-2.67.1-3.74,2.18-2.38,4.73"/>
+                        <path class="cls-2" d="M144.55,39.09,103.83,91.36c-2.78,3.57-3.15,10-.83,14.31l34.05,63.54c2.32,4.33,6.46,5,9.24,1.4L187,118.33c2.78-3.57,3.15-10,.83-14.31L153.79,40.47c-1.34-2.5-3.3-3.77-5.24-3.7a5.44,5.44,0,0,0-4,2.32"/>
+                        <path class="cls-2" d="M135,183.49l-24.27,31.15a8.5,8.5,0,0,0-.49,8.52L130.54,261c1.38,2.59,3.85,3,5.51.83l24.26-31.14a8.52,8.52,0,0,0,.49-8.53l-20.28-37.86a3.58,3.58,0,0,0-3.13-2.21,3.2,3.2,0,0,0-2.38,1.38"/>
+                        <rect class="cls-2" x="580.26" y="92.24" width="13.6" height="102.36"/>
+                        <path class="cls-1" d="M336.65,124.58a35.31,35.31,0,0,0-35.31,35.32h0v65.2h13.6V159.9H315a21.85,21.85,0,1,1,4.95,13.84V191a35.31,35.31,0,1,0,16.71-66.42Z"/>
+                        <path class="cls-1" d="M413.29,124.58A35.31,35.31,0,0,0,378,159.9h0v65.2h13.59V159.9h.07a21.85,21.85,0,1,1,4.95,13.84V191a35.31,35.31,0,1,0,16.72-66.42Z"/>
+                        <path class="cls-1" d="M257.7,92.24a35.32,35.32,0,0,0-35.31,35.32v67.05H236V127.56h0a21.69,21.69,0,1,1,43.38,0h0v7.67H244.48v13.6h34.94v45.78H293V127.56A35.32,35.32,0,0,0,257.7,92.24Z"/>
+                        <path class="cls-2" d="M534.85,127.56a21.71,21.71,0,0,1,21.71-21.71h17.13V92.24H556.56a35.32,35.32,0,0,0-35.31,35.32v67.05h13.6V150.22h37.58v-13.6H534.85Z"/>
+                        <path class="cls-2" d="M650.78,125v42.74h0a15.83,15.83,0,0,1-31.65,0h0V125h-13.6v42.79h0a29.41,29.41,0,0,0,22.62,28.25v29h13.59v-29a29.43,29.43,0,0,0,22.62-28.25h0V125Z"/>
+                        <path class="cls-2" d="M727.23,165.25a21.69,21.69,0,1,1-6.58-21.54l-30.54,17.63,6.8,11.78,42.71-24.66a35.31,35.31,0,1,0-15.76,42,35.17,35.17,0,0,0,17.24-25.24Z"/>
+                        <path class="cls-2" d="M783.74,124.58A35.12,35.12,0,0,0,762,132.06v-7.15h-13.6v69.7H762V159.9h0a21.71,21.71,0,1,1,21.7-21.71h2.75v-13.6Z"/>
+                        <path class="cls-1" d="M500.21,162.28,466.38,146.5h0a3.34,3.34,0,0,1,1.48-6.34v0h38.59v-13.6H467.87v0a16.95,16.95,0,0,0-7.24,32.28l33.83,15.77h0A3.35,3.35,0,0,1,493,181H453.5v13.6H493a17,17,0,0,0,7.17-32.32Z"/>
+                    </g>
+                </svg>
+            </div>
+            <h1 class="main-title">Support Engineer</h1>
+            <h2 class="subtitle">Test Environment</h2>
+        </header>
+
+        <!-- Secondary Page Navigation -->
+        <div class="secondary-link">
+            <a href="index.html">📄 Navigate to Main Page</a>
+        </div>
 </body>
-}
+</html>
