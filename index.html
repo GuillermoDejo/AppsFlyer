@@ -421,6 +421,67 @@
             </div>
         </section>
     </div>
+    <section class="nav-section">
+        <h3 class="section-title">🧪 Parquet → CSV Converter</h3>
+          <div class="qr-section">
+            <div style="margin-bottom: 1rem;">
+              <input type="file" id="parquetFile" accept=".parquet" />
+            </div>
+            <button class="test-link" onclick="convertParquet()">Convert & Download CSV</button>
+            <div id="parquetStatus" style="margin-top: 1rem; color: #7ad143;"></div>
+          </div>
+    </section>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+<script>
+  let pyodideReady = false;
+
+  async function loadPyodideAndPackages() {
+    const pyodide = await loadPyodide();
+    await pyodide.loadPackage(['pandas', 'pyarrow']);
+    pyodideReady = true;
+    window.pyodide = pyodide;
+  }
+
+  loadPyodideAndPackages();
+
+  async function convertParquet() {
+    const statusEl = document.getElementById("parquetStatus");
+    const fileInput = document.getElementById("parquetFile");
+    if (!pyodideReady) {
+      statusEl.innerText = "Pyodide is still loading. Please wait...";
+      return;
+    }
+    if (!fileInput.files.length) {
+      statusEl.innerText = "Please select a .parquet file first.";
+      return;
+    }
+
+    const file = fileInput.files[0];
+    const arrayBuffer = await file.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
+
+    pyodide.FS.writeFile("input.parquet", uint8Array);
+
+    try {
+      await pyodide.runPythonAsync(`
+        import pandas as pd
+        df = pd.read_parquet("input.parquet")
+        df.to_csv("output.csv", index=False)
+      `);
+      const csvData = pyodide.FS.readFile("output.csv");
+      const blob = new Blob([csvData], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "converted.csv";
+      a.click();
+      statusEl.innerText = "✅ Conversion complete. Download started.";
+    } catch (e) {
+      statusEl.innerText = "❌ Error: " + e.message;
+    }
+  }
+</script>
 
     <!-- AppsFlyer Scripts -->
     <script>
